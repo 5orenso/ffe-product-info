@@ -22,11 +22,10 @@ Include this on your webpage for each product you want to display availability:
 
 Include this at the bottom of the page:
 ```html
-<script async src="/bundle/ffe-product-info-bundle.js"></script>
+<script async src="https://flyfisheurope.com/bundle/ffe-product-info-bundle.js"></script>
 ```
 
-
-
+![Example from Flyfish Europes website](./examples/ffe-example-1.jpg)
 
 
 ## Development
