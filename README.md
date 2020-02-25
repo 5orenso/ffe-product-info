@@ -6,13 +6,12 @@
 Include this on your webpage for each product you want to display availability:
 
 ```html
-<div data-widget-host="ffe-product-info" data-prop-prefix="Remote stock:" data-prop-articleno="12447-059-50"></div>
-
+<div data-prop-prefix="Remote stock:" data-prop-articleno="12447-059-50" data-widget-host="ffe-product-info"></div>
 ```
 
 #### Options
 
-| Options             | Type   | Description |
+| Option              | Type   | Description |
 |---------------------|--------|-------------------------------------------------------------------------------------------------|
 | data-widget-host    | string | This is the container identifier. Do NOT change this.
 | data-prop-prefix    | string | This is the text in front of the availability badge. Can be whatever you like.
