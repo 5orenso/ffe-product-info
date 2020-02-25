@@ -1,9 +1,10 @@
 import { h, Component } from 'preact';
 import { observer } from 'mobx-preact';
 
-const initialState = {
-    message: 'Hello world',
-};
+import util from '../../lib/util';
+import style from './style.css';
+
+const initialState = {};
 
 @observer
 class Frontpage extends Component {
@@ -14,28 +15,21 @@ class Frontpage extends Component {
     }
 
     async startup() {
+        const { articleno } = this.props;
         const { appState, productStore } = this.props.stores;
         await appState.loadFingerprint();
-        await productStore.load();
+        productStore.addProductArticleno(articleno);
     }
 
-    // eslint-disable-next-line
     render() {
-        const { message } = this.state;
-        const { appState, productStore } = this.props.stores;
-        const { view, counter } = appState;
-
-
+        const { productStore } = this.props.stores;
+        const prod = productStore.getProduct(this.props.articleno);
         return (
-            <div class='container'>
-                <div class='row'>
-                    <div class='col-12'>
-                        {message}
-                        {JSON.stringify(view)}
-                        <button type='button' onClick={() => appState.decCounter()}>-</button>
-                        Counter: {counter}
-                        <button type='button' onClick={() => appState.incCounter()}>+</button>
-                    </div>
+            <div>
+                <div>
+                    <strong>
+                        {this.props.prefix}
+                    </strong> {util.getStockBadge(prod.availability, style, prod.preSaleDiscontinued)}
                 </div>
             </div>
         );

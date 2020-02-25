@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import querystring from 'querystring';
 import PubSub, { topics } from './pubsub';
 
@@ -386,6 +387,22 @@ class Utilities {
     static randomPassword() {
         const randomstring = Math.random().toString(36).slice(-8);
         return randomstring;
+    }
+
+    static getStockBadge(stock, style, isDiscontinued) {
+        if (!stock) {
+            return <span class={`${style.badge} ${style['badge-pill']} ${style['badge-light']} ${style['text-muted']}`}> n/a </span>;
+        }
+        if (stock === 'Yes') {
+            return <span class={`${style.badge} ${style['badge-pill']} ${style['badge-success']}`}>Yes</span>;
+        }
+        if  (stock === 'No') {
+            if (isDiscontinued) {
+                return <span class={`${style.badge} ${style['badge-pill']} ${style['badge-danger']}`}>Sold out</span>;
+            }
+            return <span class={`${style.badge} ${style['badge-pill']} ${style['badge-danger']}`}>No</span>;
+        }
+        return <span class={`${style.badge} ${style['badge-pill']} ${style['badge-warning']}`}>{stock}</span>;
     }
 }
 

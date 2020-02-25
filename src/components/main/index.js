@@ -52,21 +52,7 @@ class Main extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <div class='sticky-top'>
-                    <Progress stores={this.stores} />
-                    {/*
-                        This would be a nice place to put your navbar.
-                    */}
-                    <Error stores={this.stores} />
-                    <Status stores={this.stores} />
-                </div>
-
-                { this.getMainContent() }
-
-            </div>
-        );
+        return this.getMainContent();
     }
 }
 

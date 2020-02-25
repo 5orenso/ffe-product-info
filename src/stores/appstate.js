@@ -26,41 +26,24 @@ class AppState {
     }
 
     @action
-    incCounter() {
-        this.counter += 1;
-        util.set('counter', this.counter);
-    }
-
-    @action
-    decCounter() {
-        this.counter -= 1;
-        util.set('counter', this.counter);
-    }
-
-    @computed
-    get counterTimes2() {
-        return this.counter * 2;
-    }
-
-    @action
     updateFingerprint(fingerprint) {
         this.fingerprint = fingerprint;
     }
 
     async loadFingerprint() {
-        // Set to empty to get a better navigation feeling.
-        const response = await util.fetchApi(`/api/fingerprint/`, { publish: true });
-        if (response.status === 200) {
-            this.updateFingerprint(response);
-            util.setJwtToken(this.fingerprint.jwtToken);
+        const fingerprint = util.getObject('fingerprint');
+        const jwtToken = util.getJwtToken();
+        if (!fingerprint || !jwtToken) {
+            // Set to empty to get a better navigation feeling.
+            const response = await util.fetchApi(`/api/fingerprint/`, { publish: false });
+            if (response.status === 200) {
+                this.updateFingerprint(response);
+                util.setObject('fingerprint', response);
+                util.setJwtToken(this.fingerprint.jwtToken);
+            }
         }
     }
 }
 
 const store = new AppState();
-
-autorun(() => {
-    console.log(store.counter);
-})
-
 export default store;

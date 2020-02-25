@@ -4,13 +4,23 @@ import util from '../lib/util';
 configure({ enforceActions: 'always' });
 
 class ProductStore {
-    @observable limit = 10;
+    @observable limit = 500;
+
+    @observable httpStatus;
+
+    @observable productRef = {};
+
+    @observable product = {};
 
     @observable products = [];
 
-    @observable query = {};
-
     @observable articleno = '';
+
+    @observable articlenos = [];
+
+    getProduct(articleno) {
+        return this.products.find(e => e.articleno === articleno) || {};
+    }
 
     @action
     updateTotal(total) {
@@ -18,38 +28,42 @@ class ProductStore {
     }
 
     @action
-    updateArticleno(articleno) {
-        this.articleno = articleno;
+    updateHttpStatus(httpStatus) {
+        this.httpStatus = httpStatus;
     }
 
     @action
     update(products) {
-        this.products = products;
+        const productsForInsertion = products.filter(p => this.products.findIndex(e => e.articleno !== p.articleno));
+        this.products = this.products.concat(productsForInsertion);
     }
 
     @action
-    updateQuery(key, val) {
-        if (typeof key === 'object') {
-            this.query = key;
-        } else {
-            this.query[key] = val;
-        }
+    addProductArticleno(articleno) {
+        this.articlenos.push(articleno);
+        clearTimeout(this.loadTimer);
+        this.loadTimer = setTimeout(() => this.load(), 500);
     }
 
-    async load(inputQuery = {}) {
-        const finalQuery = {
-            ...this.query,
-            ...inputQuery,
-        };
-        finalQuery.extendedView = 1;
-        finalQuery.limit = this.limit;
+    async load() {
+        // if (inputQuery.articleno && this.productRef[inputQuery.articleno]) {
+        //     return this.productRef[inputQuery.articleno];
+        // }
 
         // Set to empty to get a better navigation feeling.
-        const response = await util.fetchApi(`/api/products/consumer/${this.articleno}`, { publish: true }, finalQuery);
+        const response = await util.fetchApi('/api/products/consumer/',
+            { publish: false, method: 'POST' },
+            {
+                limit: this.limit,
+                articlenoin: this.articlenos,
+            });
         if (response.status === 200) {
             this.updateTotal(response.total);
             this.update(response.data);
+            return response.data[0];
         }
+        this.updateHttpStatus(response.status);
+        return undefined;
     }
 }
 
