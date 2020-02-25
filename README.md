@@ -17,7 +17,12 @@ Include this on your webpage for each product you want to display availability:
 </div>
 ```
 
-`ffe-product-number` is the product number used at Flyfish Europe.
+#### Options
+
+| Options   | Type   | Description |
+|-----------|--------|-------------------------------------------------------------------------------------------------|
+| prefix    | string | This is the text in front of the availability badge. Can be whatever you like.
+| articleno | string | This is the products article number from Flyfish Europe. Placeholder in example is `ffe-product-number`.
 
 
 Include this at the bottom of the page:
@@ -25,6 +30,9 @@ Include this at the bottom of the page:
 <script async src="https://flyfisheurope.com/bundle/ffe-product-info-bundle.js"></script>
 ```
 
+### Example usage
+
+From Flyfish Europes productlist:
 ![Example from Flyfish Europes website](./examples/ffe-example-1.jpg)
 
 
