@@ -15,7 +15,7 @@ class Start extends Component {
     constructor(props) {
         super(props);
 
-        const apiServer = props.apiServer || `${window.location.protocol}//${window.location.host}`;
+        const apiServer = props.apiServer || 'https://flyfisheurope.com' || `${window.location.protocol}//${window.location.host}`;
         util.setApiServer(apiServer);
 
         this.setState({

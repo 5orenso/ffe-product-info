@@ -6,16 +6,15 @@
 Include this on your webpage for each product you want to display availability:
 
 ```html
-<div data-widget-host="ffe-product-info">
-      <script type="text/props">
-            { 
-                  "apiServer": "https://flyfisheurope.com",
-                  "prefix": "Availability:",
-                  "articleno": "ffe-product-number"
-            }
-      </script>
-</div>
+<div
+      data-widget-host="ffe-product-info"
+      data-prop-prefix="Remote stock:"
+      data-prop-articleno="12447-059-50"
+></div>
+
 ```
+
+Or even simpler
 
 #### Options
 
