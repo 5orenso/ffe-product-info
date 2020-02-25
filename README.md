@@ -1,6 +1,6 @@
 # FFE Product info widget
 
-## TLDR;
+## TL;DR
 
 
 Include this on your webpage for each product you want to display availability:
