@@ -10,8 +10,6 @@ Include this on your webpage for each product you want to display availability:
 
 ```
 
-Or even simpler
-
 #### Options
 
 | Options             | Type   | Description |
